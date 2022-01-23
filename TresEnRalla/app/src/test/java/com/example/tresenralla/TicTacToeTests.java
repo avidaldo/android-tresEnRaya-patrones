@@ -4,8 +4,7 @@ import static junit.framework.Assert.assertNull;
 
 import static org.junit.Assert.assertEquals;
 
-import com.example.tresenralla.model.Board;
-import com.example.tresenralla.model.Player;
+import com.example.tresenralla.model.Tablero;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +12,11 @@ import org.junit.Test;
 
 public class TicTacToeTests {
 
-    private Board board;
+    private Tablero board;
 
     @Before
     public void setup() {
-        board = new Board();
+        board = new Tablero();
     }
 
     /**
@@ -30,20 +29,20 @@ public class TicTacToeTests {
     @Test
     public void test3inRowAcrossTopForX() {
 
-        board.mark(0,0); // x
-        assertNull(board.getWinner());
+        board.marcar(0,0); // x
+        assertNull(board.getGanador());
 
-        board.mark(1,0); // o
-        assertNull(board.getWinner());
+        board.marcar(1,0); // o
+        assertNull(board.getGanador());
 
-        board.mark(0,1); // x
-        assertNull(board.getWinner());
+        board.marcar(0,1); // x
+        assertNull(board.getGanador());
 
-        board.mark(2,1); // o
-        assertNull(board.getWinner());
+        board.marcar(2,1); // o
+        assertNull(board.getGanador());
 
-        board.mark(0,2); // x
-        assertEquals(Player.X, board.getWinner());
+        board.marcar(0,2); // x
+        assertEquals(Tablero.Jugador.X, board.getGanador());
     }
 
 
@@ -57,23 +56,23 @@ public class TicTacToeTests {
     @Test
     public void test3inRowDiagonalFromTopLeftToBottomForO() {
 
-        board.mark(0,1); // x
-        assertNull(board.getWinner());
+        board.marcar(0,1); // x
+        assertNull(board.getGanador());
 
-        board.mark(0,0); // o
-        assertNull(board.getWinner());
+        board.marcar(0,0); // o
+        assertNull(board.getGanador());
 
-        board.mark(2,1); // x
-        assertNull(board.getWinner());
+        board.marcar(2,1); // x
+        assertNull(board.getGanador());
 
-        board.mark(1,1); // o
-        assertNull(board.getWinner());
+        board.marcar(1,1); // o
+        assertNull(board.getGanador());
 
-        board.mark(0,2); // x
-        assertNull(board.getWinner());
+        board.marcar(0,2); // x
+        assertNull(board.getGanador());
 
-        board.mark(2,2); // o
-        assertEquals(Player.O, board.getWinner());
+        board.marcar(2,2); // o
+        assertEquals(Tablero.Jugador.O, board.getGanador());
 
     }
 
