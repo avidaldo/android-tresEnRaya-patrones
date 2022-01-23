@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tres en ralla</string>
+    <string name="action_reset">Reiniciar</string>
+    <string name="winner">Ganador</string>
 </resources>
