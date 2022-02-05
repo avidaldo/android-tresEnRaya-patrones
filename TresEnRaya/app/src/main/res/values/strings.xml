@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Tres en raya</string>
+    <string name="action_reset">Reiniciar</string>
+    <string name="winner">Ganador</string>
+</resources>
