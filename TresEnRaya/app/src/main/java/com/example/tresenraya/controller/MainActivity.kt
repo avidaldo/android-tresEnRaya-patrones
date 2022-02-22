@@ -2,7 +2,6 @@ package com.example.tresenraya.controller
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.GridLayout
@@ -41,17 +40,18 @@ class MainActivity : AppCompatActivity() {
         val tag = button.tag.toString().toCharArray()
         val row = tag[0].digitToInt()
         val col = tag[1].digitToInt()
-        val jugadorQueMovio = modelo.marcar(row, col) ?: return // TODO: arreglar con scoped functions?
 
-        Log.i(TAG, "Celda [$row,$col] marcada por Jugador $jugadorQueMovio")
 
-        button.text = jugadorQueMovio.toString()
-        if (modelo.ganador != null) { // Comprobamos si el movimiento ha generado un ganador
-            binding.winnerPlayerLabel.text = jugadorQueMovio.toString()
-            binding.winnerPlayerViewGroup.visibility = View.VISIBLE
+        if (modelo.jugarTurno(row, col)) {
+
+            button.text = modelo.getplayerInCell(row, col)?.toString()
+            modelo.ganador?.let{ // Comprobamos si el movimiento ha generado un ganador
+                binding.winnerPlayerLabel.text = it.toString()
+                binding.winnerPlayerViewGroup.visibility = View.VISIBLE
+            }
         }
-
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -78,13 +78,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
     /** Función de extensión que recibe como parámetro una lambda
      * Se exitende GridLayout para que tenga este método, el cual recorre todos los
      * Button que la componen (asunción) y para cada uno de ellos le asigna la función
      * pasada a su OnClickListener */
-    private fun GridLayout.setOnClickListener( onClick: (Button) -> Unit ) {
+    private fun GridLayout.setOnClickListener(onClick: (Button) -> Unit) {
         for (i in 0 until childCount) {
             val boton = getChildAt(i) as Button
             boton.setOnClickListener {

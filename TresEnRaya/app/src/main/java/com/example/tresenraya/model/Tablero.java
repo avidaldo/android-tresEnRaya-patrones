@@ -1,6 +1,8 @@
 package com.example.tresenraya.model;
 
 
+import org.jetbrains.annotations.NotNull;
+
 public class Tablero {
 
     // Definimos 2 jugadores identificados por los caracteres 'X' y 'O', que serán los que se escriban en la celda
@@ -46,24 +48,28 @@ public class Tablero {
      *
      * @param row 0..2
      * @param col 0..2
-     * @return (devuelve) el jugador en turno o null si no se ha podido marcar (celda inválida o partida acabada)
+     * @return
      */
-    public Jugador marcar(int row, int col) {
-        if (estado == GameState.TERMINADO) return null; // No se sigue marcando si el juego ha terminado
-        if (!isValida(row, col)) return null; // Celda inválida (la vista ya no debería permitirlo
+    public boolean jugarTurno(int row, int col) {
+        if (estado == GameState.TERMINADO) return false; // No se sigue marcando si el juego ha terminado
 
-        Jugador jugadorQueMovio = jugadorEnTurno;
+        if (!marcar(row, col)) return false;
 
-        celdas[row][col].setValue(jugadorQueMovio);
 
-        if (isMovimientoGana(jugadorQueMovio, row, col)) {
+        if (isMovimientoGana(row, col)) {
             estado = GameState.TERMINADO;
-            ganador = jugadorQueMovio;
+            ganador = jugadorEnTurno;
         } else {
             cambiarTurno(); // Cambia el Jugador en turno
         }
 
-        return jugadorQueMovio;
+        return true;
+    }
+
+    private boolean marcar(int row, int col) {
+        if (!isValida(row, col)) return false; // Celda inválida (la vista ya no debería permitirlo)
+        celdas[row][col].setValue(jugadorEnTurno);
+        return true;
     }
 
 
@@ -87,28 +93,32 @@ public class Tablero {
     }
 
     private boolean isCeldaConValor(int row, int col) {
-        return celdas[row][col].getValue() != null;
+        return getplayerInCell(row,col) != null;
+    }
+
+    public Jugador getplayerInCell(int row, int col) {
+        return celdas[row][col].getValue();
     }
 
 
     /**
      * Devuelve true si el movimiento gana
      */
-    private boolean isMovimientoGana(Jugador player, int fila, int columna) {
-        return (celdas[fila][0].getValue() == player         // 3-in-the-row
-                && celdas[fila][1].getValue() == player
-                && celdas[fila][2].getValue() == player
-                || celdas[0][columna].getValue() == player      // 3-in-the-column
-                && celdas[1][columna].getValue() == player
-                && celdas[2][columna].getValue() == player
+    private boolean isMovimientoGana(int fila, int columna) {
+        return (celdas[fila][0].getValue() == jugadorEnTurno         // 3-in-the-row
+                && celdas[fila][1].getValue() == jugadorEnTurno
+                && celdas[fila][2].getValue() == jugadorEnTurno
+                || celdas[0][columna].getValue() == jugadorEnTurno      // 3-in-the-column
+                && celdas[1][columna].getValue() == jugadorEnTurno
+                && celdas[2][columna].getValue() == jugadorEnTurno
                 || fila == columna            // 3-in-the-diagonal
-                && celdas[0][0].getValue() == player
-                && celdas[1][1].getValue() == player
-                && celdas[2][2].getValue() == player
+                && celdas[0][0].getValue() == jugadorEnTurno
+                && celdas[1][1].getValue() == jugadorEnTurno
+                && celdas[2][2].getValue() == jugadorEnTurno
                 || fila + columna == 2    // 3-in-the-opposite-diagonal
-                && celdas[0][2].getValue() == player
-                && celdas[1][1].getValue() == player
-                && celdas[2][0].getValue() == player);
+                && celdas[0][2].getValue() == jugadorEnTurno
+                && celdas[1][1].getValue() == jugadorEnTurno
+                && celdas[2][0].getValue() == jugadorEnTurno);
     }
 
     private void cambiarTurno() {

@@ -29,19 +29,19 @@ public class TicTacToeTests {
     @Test
     public void test3inRowAcrossTopForX() {
 
-        board.marcar(0,0); // x
+        board.jugarTurno(0,0); // x
         assertNull(board.getGanador());
 
-        board.marcar(1,0); // o
+        board.jugarTurno(1,0); // o
         assertNull(board.getGanador());
 
-        board.marcar(0,1); // x
+        board.jugarTurno(0,1); // x
         assertNull(board.getGanador());
 
-        board.marcar(2,1); // o
+        board.jugarTurno(2,1); // o
         assertNull(board.getGanador());
 
-        board.marcar(0,2); // x
+        board.jugarTurno(0,2); // x
         assertEquals(Tablero.Jugador.X, board.getGanador());
     }
 
@@ -56,22 +56,22 @@ public class TicTacToeTests {
     @Test
     public void test3inRowDiagonalFromTopLeftToBottomForO() {
 
-        board.marcar(0,1); // x
+        board.jugarTurno(0,1); // x
         assertNull(board.getGanador());
 
-        board.marcar(0,0); // o
+        board.jugarTurno(0,0); // o
         assertNull(board.getGanador());
 
-        board.marcar(2,1); // x
+        board.jugarTurno(2,1); // x
         assertNull(board.getGanador());
 
-        board.marcar(1,1); // o
+        board.jugarTurno(1,1); // o
         assertNull(board.getGanador());
 
-        board.marcar(0,2); // x
+        board.jugarTurno(0,2); // x
         assertNull(board.getGanador());
 
-        board.marcar(2,2); // o
+        board.jugarTurno(2,2); // o
         assertEquals(Tablero.Jugador.O, board.getGanador());
 
     }
