@@ -48,4 +48,8 @@ dependencies {
     // Añadida dependencia de mockito
     testImplementation("org.mockito:mockito-core:2.1.0")
 
+
+    // Activity
+    implementation "androidx.activity:activity-ktx:1.2.2"
+
 }

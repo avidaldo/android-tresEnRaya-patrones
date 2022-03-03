@@ -1,18 +1,15 @@
-package com.example.tresenraya.presenter
+package com.example.tresenraya.viewmodel
 
+import androidx.lifecycle.ViewModel
 import com.example.tresenraya.model.TresEnRayaModel
-import com.example.tresenraya.view.ITresEnRayaView
 
 
-/** El Presenter es similar al controlador de MVC, sólo que no está vinculado a una implementación específica de la Vista, solo a una interfaz. Esto
- * soluciona los problemas de testabilidad, así como de modularidad/flexibilidad que teníamos con MVC. De hecho, puristas del MVP argumentarían que el
- * presenter nunca debería tener referencias a ninguna API o código de Android.
+/**
+ * Nuestro ViewModel heredará de la clase ViewModel
  *
- * Nos permite definir de modo simple y claro la intención de cada acción. En lugar de decirle a la vista cómo mostrar algo, simplemente le dice
- * qué hacer.
  */
 
-class TresEnRayaPresenter(private val view: ITresEnRayaView) : ITresEnRayaPresenter {
+class TresEnRayaViewModel() : ViewModel() {
 
     /** Necesitaremos referencias tanto al modelo como a la vista, ya que desde aquí se hará la comunicación entre ambos.
      * La referencia a la vista se recibe desde el constructor ya que la ejecución empieza desde ella.

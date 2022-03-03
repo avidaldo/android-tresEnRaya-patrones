@@ -1,9 +1,9 @@
-package com.example.tresenraya.presenter
+package com.example.tresenraya.viewmodel
 
 
 
 
-interface ITresEnRayaPresenter {
+interface ITresEnRayaViewModel {
 
     fun onCreate()
     fun onPause()

@@ -10,22 +10,29 @@ import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tresenraya.R
 import com.example.tresenraya.databinding.ActivityMainBinding
-import com.example.tresenraya.presenter.TresEnRayaPresenter
+import com.example.tresenraya.viewmodel.TresEnRayaViewModel
+import androidx.activity.viewModels
 
 
-/** Explicación MVP: https://www.youtube.com/watch?v=CeRnCgoG1N4 */
 
-
-class TresEnRayaActivity : AppCompatActivity(), ITresEnRayaView {
+class TresEnRayaActivity : AppCompatActivity(){
     private val TAG = TresEnRayaActivity::class.java.name
 
     private lateinit var binding: ActivityMainBinding
 
-    var presenter = TresEnRayaPresenter(this) // Se pasa al presenter la Activity como vista en el momento en que se instancia la app
+    private val viewModel: TresEnRayaViewModel by viewModels() // Instanciamos el viewModel con la activity
+
+    /**
+     * viewModels() devuelve una propiedad delegada Lazy para acceder al ViewModel
+     *
+     * https://kotlinlang.org/docs/delegated-properties.html
+     * https://en.wikipedia.org/wiki/Delegation_pattern
+     *
+     */
 
 
     /***************************************************************************************
-     * Métodos del ciclo de vida que llamarán al presentador
+     * Métodos del ciclo de vida
      ***************************************************************************************/
 
     override fun onCreate(savedInstanceState: Bundle?) {

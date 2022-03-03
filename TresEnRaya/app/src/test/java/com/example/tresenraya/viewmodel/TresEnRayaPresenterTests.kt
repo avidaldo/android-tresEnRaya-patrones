@@ -1,6 +1,5 @@
-package com.example.tresenraya.presenter
+package com.example.tresenraya.viewmodel
 
-import com.example.tresenraya.view.ITresEnRayaView
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,7 +15,7 @@ import org.mockito.runners.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class TresEnRayaPresenterTests {
 
-    private lateinit var presenter: TresEnRayaPresenter
+    private lateinit var presenter: TresEnRayaViewModel
 
     @Mock
     /** Creamos un mock de la vista, para poder probar el Presenter de modo independiente */
@@ -25,7 +24,7 @@ class TresEnRayaPresenterTests {
     @Before
             /** Antes de cada test será necesario tener instanciado el presenter */
     fun setup() {
-        presenter = TresEnRayaPresenter(view)
+        presenter = TresEnRayaViewModel(view)
         presenter.onCreate() // Para instanciar el modelo
     }
 
