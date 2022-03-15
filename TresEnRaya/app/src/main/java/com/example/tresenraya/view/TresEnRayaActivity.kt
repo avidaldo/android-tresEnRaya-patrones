@@ -72,7 +72,6 @@ class TresEnRayaActivity : AppCompatActivity(), ITresEnRayaView {
     }
 
 
-
     /***************************************************************************************
      * Métodos que serán llamados desde el presenter para modificar la vista
      ***************************************************************************************/

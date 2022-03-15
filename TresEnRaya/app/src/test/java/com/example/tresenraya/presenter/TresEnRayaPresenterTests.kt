@@ -22,8 +22,8 @@ class TresEnRayaPresenterTests {
     /** Creamos un mock de la vista, para poder probar el Presenter de modo independiente */
     private lateinit var view: ITresEnRayaView
 
-    @Before
-            /** Antes de cada test será necesario tener instanciado el presenter */
+
+    @Before /** Antes de cada test será necesario tener instanciado el presenter */
     fun setup() {
         presenter = TresEnRayaPresenter(view)
         presenter.onCreate() // Para instanciar el modelo
