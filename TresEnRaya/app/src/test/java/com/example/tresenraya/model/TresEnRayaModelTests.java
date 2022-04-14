@@ -30,19 +30,19 @@ public class TresEnRayaModelTests {
     @Test
     public void test3inRowAcrossTopForX() {
 
-        board.marcarCeldaOrNull(0,0); // x
+        board.marcar(0,0); // x
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(1,0); // o
+        board.marcar(1,0); // o
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(0,1); // x
+        board.marcar(0,1); // x
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(2,1); // o
+        board.marcar(2,1); // o
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(0,2); // x
+        board.marcar(0,2); // x
         assertEquals(TresEnRayaModel.Jugador.X, board.getGanador());
     }
 
@@ -57,22 +57,22 @@ public class TresEnRayaModelTests {
     @Test
     public void test3inRowDiagonalFromTopLeftToBottomForO() {
 
-        board.marcarCeldaOrNull(0,1); // x
+        board.marcar(0,1); // x
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(0,0); // o
+        board.marcar(0,0); // o
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(2,1); // x
+        board.marcar(2,1); // x
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(1,1); // o
+        board.marcar(1,1); // o
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(0,2); // x
+        board.marcar(0,2); // x
         assertNull(board.getGanador());
 
-        board.marcarCeldaOrNull(2,2); // o
+        board.marcar(2,2); // o
         assertEquals(TresEnRayaModel.Jugador.O, board.getGanador());
 
     }

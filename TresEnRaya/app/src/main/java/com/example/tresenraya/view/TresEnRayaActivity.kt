@@ -1,23 +1,20 @@
 package com.example.tresenraya.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.GridLayout
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.tresenraya.R
 import com.example.tresenraya.databinding.ActivityMainBinding
 import com.example.tresenraya.viewmodel.TresEnRayaViewModel
-import androidx.activity.viewModels
 
 
-
-class TresEnRayaActivity : AppCompatActivity(){
-    private val TAG = TresEnRayaActivity::class.java.name
-
+class TresEnRayaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: TresEnRayaViewModel by viewModels() // Instanciamos el viewModel con la activity
@@ -42,23 +39,28 @@ class TresEnRayaActivity : AppCompatActivity(){
 
         binding.buttonGrid.setOnClickListener(::onCellClicked)
 
-        presenter.onCreate()
-    }
+
+        viewModel.modelLiveData.observe(this, Observer {
+
+            binding.btn00.text = it.tablero[0][0].toString()
+            binding.btn01.text = it.tablero[0][1].toString()
+            binding.btn02.text = it.tablero[0][2].toString()
+            binding.btn10.text = it.tablero[1][0].toString()
+            binding.btn11.text = it.tablero[1][1].toString()
+            binding.btn12.text = it.tablero[1][2].toString()
+            binding.btn20.text = it.tablero[2][0].toString()
+            binding.btn21.text = it.tablero[2][1].toString()
+            binding.btn22.text = it.tablero[2][2].toString()
 
 
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
-    }
+            binding.winnerPlayerViewGroup.visibility =
+                it.ganador?.let {
+                    binding.winnerPlayerLabel.text = it.toString()
+                    View.VISIBLE
+                } ?: View.GONE
 
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
+        })
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDestroy()
     }
 
 
@@ -66,60 +68,31 @@ class TresEnRayaActivity : AppCompatActivity(){
      * Definición del menú de reset
      ***************************************************************************************/
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_reset -> { presenter.onResetSelected(); true }
+            R.id.action_reset -> {
+                viewModel.onResetSelected(); true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
-
-    /***************************************************************************************
-     * Métodos que serán llamados desde el presenter para modificar la vista
-     ***************************************************************************************/
-
-
-
-    override fun setButtonText(row: Int, col: Int, text: String) {
-        val btn = binding.buttonGrid.findViewWithTag<View>("$row$col") as Button
-        btn.text = text
-    }
-
-    override fun showWinner(winningPlayerDisplayLabel: String) {
-        binding.winnerPlayerLabel.text = winningPlayerDisplayLabel
-        binding.winnerPlayerViewGroup.visibility = View.VISIBLE
-    }
-
-    override fun clearWinnerDisplay() {
-        binding.winnerPlayerViewGroup.visibility = View.GONE
-        binding.winnerPlayerLabel.text = ""
-    }
-
-    override fun clearButtons() {
-        for (i in 0 until binding.buttonGrid.childCount) {
-            (binding.buttonGrid.getChildAt(i) as Button).text = null
-        }
-    }
-
 
 
     /***************************************************************************************
      * Definición del comportamiento de la vista ante eventos (cuando se tocan las celdas)
      ***************************************************************************************/
 
-    /** Método que indica al presenter qué celda se ha pulsado */
+    /** Método que indica al viewModel qué celda se ha pulsado */
     private fun onCellClicked(button: Button) {
         val tag = button.tag.toString().toCharArray()
         val row = tag[0].digitToInt()
         val col = tag[1].digitToInt()
-        Log.i(TAG, "Click Row: [$row,$col]")
-        presenter.onButtonSelected(row, col)
+        viewModel.onButtonSelected(row, col)
     }
 
 
